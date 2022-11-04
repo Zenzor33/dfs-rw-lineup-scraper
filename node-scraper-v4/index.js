@@ -1,6 +1,5 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
-const e = require("express");
 const express = require("express");
 const ObjectsToCsv = require("objects-to-csv");
 const PORT = 3025;
@@ -35,12 +34,6 @@ axios(url).then((response) => {
   }
   console.log(uniqueIds);
 });
-
-// for (let i = 0; i < arr.length; i++) {
-//   let entry = arr[i];
-//   if (uniqueIds.length === 0) uniqueIds.push(entry);
-//   if (isUnique(entry.athlete)) uniqueIds.push(entry);
-// }
 
 function isUnique(playerName) {
   for (let j = 0; j < uniqueIds.length; j++) {

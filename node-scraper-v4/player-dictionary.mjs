@@ -136,6 +136,7 @@ const athleteTranslation = {
   "Dario Šarić": "Dario Šarić",
   "Darius Bazley": "Darius Bazley",
   "Darius Days": "Darius Days",
+  "D. Garland": "Darius Garland",
   "Darius Garland": "Darius Garland",
   "Darren Collison": "Darren Collison",
   "David Duke Jr.": "David Duke Jr.",
@@ -164,6 +165,7 @@ const athleteTranslation = {
   "Denzel Valentine": "Denzel Valentine",
   "Dereon Seabron": "Dereon Seabron",
   "Derrick Favors": "Derrick Favors",
+  "D. Jones": "Derrick Jones Jr.",
   "Derrick Jones Jr.": "Derrick Jones Jr.",
   "Derrick Rose": "Derrick Rose",
   "Derrick Walton": "Derrick Walton",
@@ -701,8 +703,14 @@ const athleteTranslation = {
   "Zylan Cheatham": "Zylan Cheatham",
 };
 
+// return an array of player athlete names before throwing error
+let missingPlayerArr = [];
+
 export const translateAthleteName = (athleteName) => {
   const translatedAthleteName = athleteTranslation[athleteName];
   if (translatedAthleteName) return translatedAthleteName;
-  throw `Athlete name of: ${athleteName} does not have a translation`;
+  if (!translatedAthleteName) missingPlayerArr.push(athleteName);
+  // throw `Athlete name of: ${athleteName} does not have a translation`;
 };
+
+export { missingPlayerArr };

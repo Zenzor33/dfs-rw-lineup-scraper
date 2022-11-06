@@ -1,12 +1,37 @@
 import fs from "fs";
 
-const oldPath = "/Users/harrogath/Downloads/NBA DK Projections.csv";
-const newPath =
+const oldPathDK = "/Users/harrogath/Downloads/NBA DK Projections.csv";
+const newPathDK =
   "/Users/harrogath/dfs-rw-lineup-scraper/node-scraper-v4/NBA DK Projections.csv";
 
-fs.rename(oldPath, newPath, function (err) {
-  if (err) throw err;
-  console.log("Successfully renamed - AKA moved!");
-});
+const oldPathFD = "/Users/harrogath/Downloads/NBA FD Projections.csv";
+const newPathFD =
+  "/Users/harrogath/dfs-rw-lineup-scraper/node-scraper-v4/NBA FD Projections.csv";
 
-// write a function to move draftkings and fanduel files from the downloads folder to the node-scraper-v4 folder.
+export const transferFiles = (site) => {
+  switch (site) {
+    case "dk":
+      fs.rename(oldPathDK, newPathDK, function (err) {
+        if (err) throw err;
+        console.log("Successfully renamed - AKA moved!");
+      });
+      break;
+    case "fd":
+      fs.rename(oldPathFD, newPathFD, function (err) {
+        if (err) throw err;
+        console.log("Successfully renamed - AKA moved!");
+      });
+      break;
+    case "all":
+      fs.rename(oldPathDK, newPathDK, function (err) {
+        if (err) throw err;
+        console.log("Successfully renamed - AKA moved!");
+      });
+
+      fs.rename(oldPathFD, newPathFD, function (err) {
+        if (err) throw err;
+        console.log("Successfully renamed - AKA moved!");
+      });
+      break;
+  }
+};

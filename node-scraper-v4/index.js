@@ -9,6 +9,8 @@ import {
   missingPlayerArr,
 } from "./player-dictionary.mjs";
 
+import { transferFiles } from "./file-system.mjs";
+
 const PORT = 3025;
 const url = "https://www.rotowire.com/basketball/nba-lineups.php";
 
@@ -22,6 +24,8 @@ const arrTags = [
 
 let arr = [];
 let uniqueIds = [];
+
+transferFiles("all");
 
 axios(url).then((response) => {
   const html = response.data;

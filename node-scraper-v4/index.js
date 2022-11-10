@@ -20,12 +20,14 @@ const arrTags = [
   ".is-pct-play-25 > a",
 ];
 
+const teamTags = ["lineup__team is-visit", "lineup__team is-home"];
+
 // arr = [{probability: 'str', athlete: 'str'}]
 
 let arr = [];
 let uniqueIds = [];
 
-transferFiles("all");
+// transferFiles("all");
 
 axios(url).then((response) => {
   const html = response.data;
@@ -39,7 +41,6 @@ axios(url).then((response) => {
       if (i === 2) arr.push({ probabilityToPlay: 25, athlete: athleteName });
     });
   }
-  console.log(`missingPlayerArr: ${missingPlayerArr}`);
   for (let i = 0; i < arr.length; i++) {
     let entry = arr[i];
     if (uniqueIds.length === 0) uniqueIds.push(entry);

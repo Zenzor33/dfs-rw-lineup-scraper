@@ -14,11 +14,7 @@ import { transferFiles } from "./file-system.mjs";
 const PORT = 3025;
 const url = "https://www.rotowire.com/basketball/nba-lineups.php";
 
-const arrTags = [
-  ".is-pct-play-75 > a",
-  ".is-pct-play-50 > a",
-  ".is-pct-play-25 > a",
-];
+const arrTags = [".is-pct-play-75", ".is-pct-play-50", ".is-pct-play-25"];
 
 const teamTags = ["lineup__team is-visit", "lineup__team is-home"];
 
@@ -56,32 +52,44 @@ axios(url).then((response) => {
   const $ = cheerio.load(html);
 
   $(".lineup__box").each((index, element) => {
+    // result: {athlete, team, oppTeam, pctPlay}
     let homeTeam = null;
     let awayTeam = null;
     let awayTeamInjuryPlayer = null;
-    let homeTeamAthlete50pct = null;
+    let homeTeamInjuryPlayer = null;
     awayTeam = $(element).find(".lineup__team.is-visit > .lineup__abbr").text();
     homeTeam = $(element).find(".lineup__team.is-home > .lineup__abbr").text();
-    awayTeamInjuryPlayer = $(element)
-      .find(".lineup__list.is-visit > .is-pct-play-50 > a")
-      .attr("title");
-
-    console.log(awayTeamInjuryPlayer);
-
-    // homeTeamAthlete50pct = $(element)
-    //   .find(".lineup__list.is-home > .is-pct-play-50 > a")
-    //   .text();
-
-    // .lineup__list.is-home -> ".is-pct-play-[i] > a" // .text()
-
-    playerObjArr.push({
-      awayTeam: awayTeam,
-      homeTeam: homeTeam,
-      homeTeamAthlete50pct: homeTeamAthlete50pct,
-    });
+    for (let i = 0; i < arrTags.length; i++) {
+      let pctPlay = null;
+      if (i === 0) pctPlay = 75;
+      if (i === 1) pctPlay = 50;
+      if (i === 2) pctPlay = 25;
+      awayTeamInjuryPlayer = $(element)
+        .find(`.lineup__list.is-visit > ${arrTags[i]} > a`)
+        .each(function (el) {
+          let athleteName = $(this).attr("title");
+          testArr.push({
+            athleteName,
+            team: awayTeam,
+            oppTeam: homeTeam,
+            pctPlay: pctPlay,
+          });
+        });
+      homeTeamInjuryPlayer = $(element)
+        .find(`.lineup__list.is-home > ${arrTags[i]} > a`)
+        .each(function (el) {
+          let athleteName = $(this).attr("title");
+          testArr.push({
+            athleteName,
+            team: awayTeam,
+            oppTeam: homeTeam,
+            pctPlay: pctPlay,
+          });
+        });
+    }
   });
 
-  // console.log(playerObjArr);
+  console.log(testArr);
 
   for (let i = 0; i < arr.length; i++) {
     let entry = arr[i];

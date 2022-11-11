@@ -58,15 +58,15 @@ axios(url).then((response) => {
   $(".lineup__box").each((index, element) => {
     let homeTeam = null;
     let awayTeam = null;
+    let awayTeamInjuryPlayer = null;
     let homeTeamAthlete50pct = null;
     awayTeam = $(element).find(".lineup__team.is-visit > .lineup__abbr").text();
     homeTeam = $(element).find(".lineup__team.is-home > .lineup__abbr").text();
+    awayTeamInjuryPlayer = $(element)
+      .find(".lineup__list.is-visit > .is-pct-play-50 > a")
+      .attr("title");
 
-    $(element)
-      .find(".lineup__list.is-home > .is-pct-play-50 > a")
-      .each((ele) => {
-        homeTeamAthlete50pct = $(ele).text();
-      });
+    console.log(awayTeamInjuryPlayer);
 
     // homeTeamAthlete50pct = $(element)
     //   .find(".lineup__list.is-home > .is-pct-play-50 > a")

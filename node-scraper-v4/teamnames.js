@@ -15,31 +15,8 @@ const PORT = 3025;
 const url = "https://www.rotowire.com/basketball/nba-lineups.php";
 const arrTags = [".is-pct-play-75", ".is-pct-play-50", ".is-pct-play-25"];
 
-// arr = [{probability: 'str', athlete: 'str'}]
-
 let arr = [];
 let uniqueIds = [];
-
-// transferFiles("all");
-
-/*
-.lineup__box -> .lineup__team.is-visit -> .lineup__abbr // .text()
-.lineup__box -> .lineup__team.is-home -> .lineup__abbr // .text()
-.lineup__box -> .lineup__list.is-visit -> ".is-pct-play-[i] > a" // .text()
-.lineup__box -> .lineup__list.is-home -> ".is-pct-play-[i] > a" // .text()
-
-data structure:
-[{
-    athlete: athlete,
-    probability: probability:
-    team: team
-},
-]
-
-Option 1: Scrape "bottom-up" from player name with injury status. For each player, append athlete and probability to object. Then log whether player is on home team or away team. Find name of that team and insert to object. 
-
-Option 2: 
-*/
 
 let playerObjArr = [];
 let testArr = [];
@@ -65,6 +42,7 @@ axios(url).then((response) => {
         .find(`.lineup__list.is-visit > ${arrTags[i]} > a`)
         .each(function (el) {
           let athleteName = $(this).attr("title");
+          translateAthleteName(athleteName);
           testArr.push({
             athleteName,
             team: awayTeam,
@@ -76,6 +54,7 @@ axios(url).then((response) => {
         .find(`.lineup__list.is-home > ${arrTags[i]} > a`)
         .each(function (el) {
           let athleteName = $(this).attr("title");
+          translateAthleteName(athleteName);
           testArr.push({
             athleteName,
             team: awayTeam,
@@ -86,7 +65,7 @@ axios(url).then((response) => {
     }
   });
 
-  console.log(testArr);
+  console.log(missingPlayerArr);
 
   for (let i = 0; i < arr.length; i++) {
     let entry = arr[i];

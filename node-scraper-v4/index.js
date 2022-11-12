@@ -40,6 +40,7 @@ axios(url).then((response) => {
         .find(`.lineup__list.is-visit > ${arrTags[i]} > a`)
         .each(function (el) {
           let athleteName = $(this).attr("title");
+          translateAthleteName(athleteName);
           mainArr.push({
             gameTime,
             athleteName,
@@ -52,6 +53,7 @@ axios(url).then((response) => {
         .find(`.lineup__list.is-home > ${arrTags[i]} > a`)
         .each(function (el) {
           let athleteName = $(this).attr("title");
+          translateAthleteName(athleteName);
           mainArr.push({
             gameTime,
             athleteName,
@@ -62,6 +64,8 @@ axios(url).then((response) => {
         });
     }
   });
+
+  console.log(`Playing need translations: ${missingPlayerArr}`);
 
   const uniqueIds = mainArr.reduce((a, entry) => {
     // if athlete in a, skip

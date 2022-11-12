@@ -13,10 +13,7 @@ import { transferFiles } from "./file-system.mjs";
 
 const PORT = 3025;
 const url = "https://www.rotowire.com/basketball/nba-lineups.php";
-
 const arrTags = [".is-pct-play-75", ".is-pct-play-50", ".is-pct-play-25"];
-
-const teamTags = ["lineup__team is-visit", "lineup__team is-home"];
 
 // arr = [{probability: 'str', athlete: 'str'}]
 

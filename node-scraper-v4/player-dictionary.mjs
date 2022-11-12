@@ -713,7 +713,9 @@ let missingPlayerArr = [];
 export const translateAthleteName = (athleteName) => {
   const translatedAthleteName = athleteTranslation[athleteName];
   if (translatedAthleteName) return translatedAthleteName;
-  if (!translatedAthleteName) missingPlayerArr.push(athleteName);
+  if (!translatedAthleteName) {
+    missingPlayerArr.push(athleteName);
+  }
   // throw `Athlete name of: ${athleteName} does not have a translation`;
 };
 

@@ -40,10 +40,10 @@ axios(url).then((response) => {
         .find(`.lineup__list.is-visit > ${arrTags[i]} > a`)
         .each(function (el) {
           let athleteName = $(this).attr("title");
-          translateAthleteName(athleteName);
+          let translatedAthleteName = translateAthleteName(athleteName);
           mainArr.push({
             gameTime,
-            athleteName,
+            athleteName: translatedAthleteName,
             team: awayTeam,
             oppTeam: homeTeam,
             pctPlay: pctPlay,
@@ -53,10 +53,10 @@ axios(url).then((response) => {
         .find(`.lineup__list.is-home > ${arrTags[i]} > a`)
         .each(function (el) {
           let athleteName = $(this).attr("title");
-          translateAthleteName(athleteName);
+          let translatedAthleteName = translateAthleteName(athleteName);
           mainArr.push({
             gameTime,
-            athleteName,
+            athleteName: translatedAthleteName,
             pctPlay,
             team: homeTeam,
             oppTeam: awayTeam,

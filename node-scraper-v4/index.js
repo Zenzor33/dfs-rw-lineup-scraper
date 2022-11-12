@@ -21,14 +21,16 @@ axios(url).then((response) => {
   const html = response.data;
   const $ = cheerio.load(html);
 
-  $(".lineup__box").each((index, element) => {
+  $(".lineup.is-nba").each((index, element) => {
     // result: {athlete, team, oppTeam, pctPlay}
     let homeTeam = null;
     let awayTeam = null;
+    let gameTime = null;
     let awayTeamInjuryPlayer = null;
     let homeTeamInjuryPlayer = null;
     awayTeam = $(element).find(".lineup__team.is-visit > .lineup__abbr").text();
     homeTeam = $(element).find(".lineup__team.is-home > .lineup__abbr").text();
+    gameTime = $(element).find(".lineup__time").text();
     for (let i = 0; i < arrTags.length; i++) {
       let pctPlay = null;
       if (i === 0) pctPlay = 75;
@@ -39,6 +41,7 @@ axios(url).then((response) => {
         .each(function (el) {
           let athleteName = $(this).attr("title");
           mainArr.push({
+            gameTime,
             athleteName,
             team: awayTeam,
             oppTeam: homeTeam,
@@ -50,10 +53,11 @@ axios(url).then((response) => {
         .each(function (el) {
           let athleteName = $(this).attr("title");
           mainArr.push({
+            gameTime,
             athleteName,
+            pctPlay,
             team: homeTeam,
             oppTeam: awayTeam,
-            pctPlay: pctPlay,
           });
         });
     }

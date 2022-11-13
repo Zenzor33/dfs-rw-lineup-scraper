@@ -15,7 +15,7 @@ const url = "https://www.rotowire.com/basketball/nba-lineups.php";
 const arrTags = [".is-pct-play-75", ".is-pct-play-50", ".is-pct-play-25"];
 let mainArr = [];
 
-// transferFiles("all");
+transferFiles("all");
 
 axios(url).then((response) => {
   const html = response.data;
@@ -66,6 +66,8 @@ axios(url).then((response) => {
   });
 
   console.log(`Playing need translations: ${missingPlayerArr}`);
+
+  // Get player data from projections
 
   const uniqueIds = mainArr.reduce((a, entry) => {
     // if athlete in a, skip

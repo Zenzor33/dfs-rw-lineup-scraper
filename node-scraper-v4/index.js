@@ -46,7 +46,7 @@ axios(url).then((response) => {
             athleteName: translatedAthleteName,
             team: awayTeam,
             oppTeam: homeTeam,
-            pctPlay: pctPlay,
+            pctPlay,
           });
         });
       homeTeamInjuryPlayer = $(element)
@@ -57,9 +57,9 @@ axios(url).then((response) => {
           mainArr.push({
             gameTime,
             athleteName: translatedAthleteName,
-            pctPlay,
             team: homeTeam,
             oppTeam: awayTeam,
+            pctPlay,
           });
         });
     }

@@ -1,0 +1,7 @@
+TODO 
+
+1. Refactor file transfer system code 
+2. Refactor convertProjections code 
+3. Change index to not blow up if a file transfer is not found. 
+4. Change index to use map instead of each?
+5. Change path of csv files to new folderto reduce clutter

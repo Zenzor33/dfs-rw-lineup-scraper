@@ -8,6 +8,7 @@ import {
   missingPlayerArr,
 } from "./player-dictionary.mjs";
 import { transferFiles } from "./file-system-v2.mjs";
+import { convertAwesemoProjectionNames } from "./convertProjections.js";
 
 const PORT = 3025;
 const url = "https://www.rotowire.com/basketball/nba-lineups.php";
@@ -15,6 +16,7 @@ const url = "https://www.rotowire.com/basketball/nba-lineups.php";
 const arrTags = [".is-pct-play-75", ".is-pct-play-50", ".is-pct-play-25"];
 let mainArr = [];
 
+// convertAwesemoProjectionNames();
 transferFiles();
 
 axios(url).then((response) => {

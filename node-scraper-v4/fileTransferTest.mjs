@@ -36,7 +36,6 @@ const testTransfer = (k, v) => {
 paths.map((path) => {
   let key = Object.keys(path);
   let val = path[key];
-  //   console.log(`key: ${key[0]}, val: ${val}`);
   testTransfer(key[0], val);
   return;
 });

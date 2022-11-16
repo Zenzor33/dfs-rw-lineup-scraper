@@ -22,15 +22,15 @@ const paths = [
 
 // add conditional for if oldPath does not exist
 const testTransfer = (k, v) => {
-  fs.rename(k, v, function (err) {
-    // k = oldPath
-    // v = newPath
-    if (!fs.existsSync(k)) {
-      console.log(`File ${k} does not exist`);
-    } else {
+  // k = oldPath
+  // v = newPath
+  if (!fs.existsSync(k)) {
+    console.log(`File ${k} does not exist`);
+  } else {
+    fs.rename(k, v, function () {
       console.log(`Transferred ${k} to ${v}`);
-    }
-  });
+    });
+  }
 };
 
 paths.map((path) => {

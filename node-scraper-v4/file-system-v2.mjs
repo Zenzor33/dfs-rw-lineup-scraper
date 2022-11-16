@@ -21,7 +21,6 @@ const paths = [
 ];
 
 // add conditional for if oldPath does not exist
-//
 const moveFiles = (k, v) => {
   // k = oldPath
   // v = newPath
@@ -32,13 +31,13 @@ const moveFiles = (k, v) => {
       });
 };
 
-function transferFiles() {
+export const transferFiles = () => {
   paths.map((path) => {
     let key = Object.keys(path);
     let val = path[key];
     moveFiles(key[0], val);
     return;
   });
-}
+};
 
-transferFiles();
+// transferFiles();

@@ -7,7 +7,7 @@ import {
   translateAthleteName,
   missingPlayerArr,
 } from "./player-dictionary.mjs";
-import { transferFiles } from "./file-system.mjs";
+import { transferFiles } from "./file-system-v2.mjs";
 
 const PORT = 3025;
 const url = "https://www.rotowire.com/basketball/nba-lineups.php";
@@ -15,7 +15,7 @@ const url = "https://www.rotowire.com/basketball/nba-lineups.php";
 const arrTags = [".is-pct-play-75", ".is-pct-play-50", ".is-pct-play-25"];
 let mainArr = [];
 
-transferFiles("all");
+transferFiles();
 
 axios(url).then((response) => {
   const html = response.data;
@@ -65,7 +65,7 @@ axios(url).then((response) => {
     }
   });
 
-  console.log(`Playing need translations: ${missingPlayerArr}`);
+  console.log(`Player translation required: ${missingPlayerArr}`);
 
   // Get player data from projections
 

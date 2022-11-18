@@ -12,8 +12,8 @@ export const convertAwesemoProjectionNames = async () => {
   // load the players
   const projectionsDK = await csv().fromFile("NBA DK Projections.csv");
   const projectionsFD = await csv().fromFile("NBA FD Projections.csv");
-  const projectionsDKFO = await csv().fromFile("NBA DK Ownership.csv");
-  const projectionsFDFO = await csv().fromFile("NBA FD Projections.csv");
+  // const projectionsDKFO = await csv().fromFile("NBA DK Ownership.csv");
+  // const projectionsFDFO = await csv().fromFile("NBA FD Projections.csv");
 
   // show the athletes
   //   console.log(projectionsDK);
@@ -31,17 +31,17 @@ export const convertAwesemoProjectionNames = async () => {
     return obj;
   });
 
-  const translatedProjectionsDKFO = projectionsDKFO.map((obj) => {
-    // convert obj.Name to basketball reference
-    obj.Name = translateAthleteName(obj.Name);
-    return obj;
-  });
+  // const translatedProjectionsDKFO = projectionsDKFO.map((obj) => {
+  //   // convert obj.Name to basketball reference
+  //   obj.Name = translateAthleteName(obj.Name);
+  //   return obj;
+  // });
 
-  const translatedProjectionsFDFO = projectionsFDFO.map((obj) => {
-    // convert obj.Name to basketball reference
-    obj.Name = translateAthleteName(obj.Name);
-    return obj;
-  });
+  // const translatedProjectionsFDFO = projectionsFDFO.map((obj) => {
+  //   // convert obj.Name to basketball reference
+  //   obj.Name = translateAthleteName(obj.Name);
+  //   return obj;
+  // });
 
   console.log(missingPlayerArr);
 

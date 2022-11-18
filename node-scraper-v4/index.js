@@ -16,8 +16,8 @@ const url = "https://www.rotowire.com/basketball/nba-lineups.php";
 const arrTags = [".is-pct-play-75", ".is-pct-play-50", ".is-pct-play-25"];
 let mainArr = [];
 
+// transferFiles();
 // convertAwesemoProjectionNames();
-transferFiles();
 
 axios(url).then((response) => {
   const html = response.data;

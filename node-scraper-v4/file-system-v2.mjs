@@ -40,4 +40,4 @@ export const transferFiles = () => {
   });
 };
 
-// transferFiles();
+transferFiles();

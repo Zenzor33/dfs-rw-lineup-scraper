@@ -37,7 +37,7 @@ function doesFileExist() {
       //   console.log(`${key} not found`);
       return false;
     } else {
-      console.log(`found ${fileName}`);
+      // console.log(`found ${fileName}`);
       arr.push(fileName);
       return true;
     }
@@ -45,93 +45,48 @@ function doesFileExist() {
   return arr;
 }
 
-async function convertAwesemoProjectionNamesV2() {
+export async function convertAwesemoProjectionNamesV2() {
   let currentFiles = await doesFileExist(); // returns array of currentFiles
   if (currentFiles.length > 0) {
     // switch to if currentFiles === 0 return
     for (let i = 0; i < currentFiles.length; i++) {
       const currentFile = currentFiles[i];
-      executeFile(currentFile);
+      let csvFile = await loadFile(currentFile);
+      await modifyFile(csvFile, currentFile);
+      await saveChanges(csvFile, currentFile);
     }
   }
 }
 
-async function executeFile(currentFile) {
-  const currentFileCSV = await csv().fromFile(currentFile);
-  const translatedProjections = currentFileCSV.map((obj) => {
+async function loadFile(filePath) {
+  const csvFromFile = await csv().fromFile(filePath);
+  // console.log(`loaded ${filePath} succesfully`);
+  return csvFromFile;
+}
+
+async function modifyFile(file, filePath) {
+  const translatedProjections = file.map((obj) => {
     obj.Name = translateAthleteName(obj.Name);
     return obj;
   });
+  // console.log(`modified ${filePath} successfully `);
 }
 
-convertAwesemoProjectionNamesV2();
-
-// // This function converts each player's name in awesemos projection files to pro-basketball-reference's convention.
-// const convertAwesemoProjectionNames = async () => {
-//   // load the players
-//   const projectionsDK = await csv().fromFile("NBA DK Projections.csv");
-//   const projectionsFD = await csv().fromFile("NBA FD Projections.csv");
-//   const projectionsDKFO = await csv().fromFile("NBA DK Ownership.csv");
-//   const projectionsFDFO = await csv().fromFile("NBA FD Projections.csv");
-
-//   // show the athletes
-//   //   console.log(projectionsDK);
-
-//   // modify the athletes
-//   const translatedProjectionsDK = projectionsDK.map((obj) => {
-//     // convert obj.Name to basketball reference
-//     obj.Name = translateAthleteName(obj.Name);
-//     return obj;
-//   });
-
-//   const translatedProjectionsFD = projectionsFD.map((obj) => {
-//     // convert obj.Name to basketball reference
-//     obj.Name = translateAthleteName(obj.Name);
-//     return obj;
-//   });
-
-//   const translatedProjectionsDKFO = projectionsDKFO.map((obj) => {
-//     // convert obj.Name to basketball reference
-//     obj.Name = translateAthleteName(obj.Name);
-//     return obj;
-//   });
-
-//   const translatedProjectionsFDFO = projectionsFDFO.map((obj) => {
-//     // convert obj.Name to basketball reference
-//     obj.Name = translateAthleteName(obj.Name);
-//     return obj;
-//   });
-
-//   console.log(missingPlayerArr);
-
-//   // save the changes
-//   const athletesToCsvDK = new Parser({
-//     fields: [
-//       "Name",
-//       "Fpts",
-//       "Position",
-//       "Team",
-//       "Opponent",
-//       "Minutes",
-//       "Salary",
-//       "Pts/$",
-//       "Value",
-//     ],
-//   }).parse(projectionsDK);
-//   fs.writeFileSync("NBA DK Projections.csv", athletesToCsvDK);
-
-//   const athletesToCsvFD = new Parser({
-//     fields: [
-//       "Name",
-//       "Fpts",
-//       "Position",
-//       "Team",
-//       "Opponent",
-//       "Minutes",
-//       "Salary",
-//       "Pts/$",
-//       "Value",
-//     ],
-//   }).parse(projectionsFD);
-//   fs.writeFileSync("NBA FD Projections.csv", athletesToCsvFD);
-// };
+async function saveChanges(file, filePath) {
+  // save the changes
+  const modifiedCSV = new Parser({
+    fields: [
+      "Name",
+      "Fpts",
+      "Position",
+      "Team",
+      "Opponent",
+      "Minutes",
+      "Salary",
+      "Pts/$",
+      "Value",
+    ],
+  }).parse(file); // loaded file in memory
+  fs.writeFileSync(filePath, modifiedCSV); // filePath, data
+  console.log(`sanitized names to ${filePath} success`);
+}

@@ -86,7 +86,7 @@ export const convertAwesemoProjectionNames = async () => {
       "Opponent",
       "Ownership %",
     ],
-  }).parse(projectionsDK);
+  }).parse(projectionsDKFO);
   fs.writeFileSync("NBA DK Ownership.csv", athletesToCsvDKFO);
   const athletesToCsvFDFO = new Parser({
     fields: [
@@ -98,6 +98,6 @@ export const convertAwesemoProjectionNames = async () => {
       "Opponent",
       "Ownership %",
     ],
-  }).parse(projectionsDK);
+  }).parse(projectionsFDFO);
   fs.writeFileSync("NBA FD Ownership.csv", athletesToCsvFDFO);
 };

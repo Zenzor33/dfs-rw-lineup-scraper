@@ -18,7 +18,7 @@ const arrTags = [".is-pct-play-75", ".is-pct-play-50", ".is-pct-play-25"];
 let mainArr = [];
 let main = async () => {
   await transferFiles();
-  await convertAwesemoProjectionNames();
+  await convertAwesemoProjectionNamesV2();
   let response = await axios(url);
 
   const html = response.data;

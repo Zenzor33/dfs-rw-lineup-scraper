@@ -6,6 +6,7 @@ import {
   awesemoAthleteName,
   missingPlayerArr,
 } from "./player-dictionary.mjs";
+import e from "express";
 
 /*
 What i'm trying to achieve:
@@ -28,7 +29,8 @@ const expectedFileNames = [
   { projectionsFDFO: "NBA FD Ownership.csv" },
 ];
 
-function doesFileExist() {
+// returns array in which each element is the name (and path) of an expected file that exists in the repository folder
+function getFiles() {
   let arr = [];
   expectedFileNames.map((file) => {
     let key = Object.keys(file);
@@ -46,8 +48,10 @@ function doesFileExist() {
 }
 
 export async function convertAwesemoProjectionNamesV2() {
-  let currentFiles = await doesFileExist(); // returns array of currentFiles
-  if (currentFiles.length > 0) {
+  let currentFiles = await getFiles(); // returns array of currentFiles
+  if (currentFiles.length === 0)
+    return console.log("Cannot sanitize player names: no files exist");
+  else {
     // switch to if currentFiles === 0 return
     for (let i = 0; i < currentFiles.length; i++) {
       const currentFile = currentFiles[i];

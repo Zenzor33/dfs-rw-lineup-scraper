@@ -7,12 +7,13 @@ import {
   missingPlayerArr,
 } from "./player-dictionary.mjs";
 
-(async () => {
+// This function converts each player's name in awesemos projection files to pro-basketball-reference's convention.
+export const convertAwesemoProjectionNames = async () => {
   // load the players
   const projectionsDK = await csv().fromFile("NBA DK Projections.csv");
   const projectionsFD = await csv().fromFile("NBA FD Projections.csv");
   const projectionsDKFO = await csv().fromFile("NBA DK Ownership.csv");
-  const projectionsFDFO = await csv().fromFile("NBA FD Projections.csv");
+  const projectionsFDFO = await csv().fromFile("NBA FD Ownership.csv");
 
   // show the athletes
   //   console.log(projectionsDK);
@@ -74,4 +75,29 @@ import {
     ],
   }).parse(projectionsFD);
   fs.writeFileSync("NBA FD Projections.csv", athletesToCsvFD);
-})();
+  // "Name","Salary","Position","Matchup","Team","Opponent","Ownership %"
+  const athletesToCsvDKFO = new Parser({
+    fields: [
+      "Name",
+      "Salary",
+      "Position",
+      "Matchup",
+      "Team",
+      "Opponent",
+      "Ownership %",
+    ],
+  }).parse(projectionsDKFO);
+  fs.writeFileSync("NBA DK Ownership.csv", athletesToCsvDKFO);
+  const athletesToCsvFDFO = new Parser({
+    fields: [
+      "Name",
+      "Salary",
+      "Position",
+      "Matchup",
+      "Team",
+      "Opponent",
+      "Ownership %",
+    ],
+  }).parse(projectionsFDFO);
+  fs.writeFileSync("NBA FD Ownership.csv", athletesToCsvFDFO);
+};

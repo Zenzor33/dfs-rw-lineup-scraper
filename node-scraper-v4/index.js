@@ -8,7 +8,7 @@ import {
   missingPlayerArr,
 } from "./player-dictionary.mjs";
 import { transferFiles } from "./file-system-v2.mjs";
-import { convertAwesemoProjectionNames } from "./convertProjections.js";
+// import { convertAwesemoProjectionNames } from "./convertProjections.js";
 import { convertAwesemoProjectionNamesV2 } from "./convertProjections-v2.js";
 
 const PORT = 3025;

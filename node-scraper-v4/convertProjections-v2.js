@@ -50,7 +50,9 @@ function getFiles() {
 export async function convertAwesemoProjectionNamesV2() {
   let currentFiles = await getFiles(); // returns array of currentFiles
   if (currentFiles.length === 0)
-    return console.log("Cannot sanitize player names: no files exist");
+    return console.log(
+      "Convert Projections: Cannot sanitize player names: no files exist"
+    );
   else {
     // switch to if currentFiles === 0 return
     for (let i = 0; i < currentFiles.length; i++) {
@@ -92,5 +94,5 @@ async function saveChanges(file, filePath) {
     ],
   }).parse(file); // loaded file in memory
   fs.writeFileSync(filePath, modifiedCSV); // filePath, data
-  console.log(`sanitized names to ${filePath} success`);
+  console.log(`Convert Projections: sanitized names to ${filePath} success`);
 }

@@ -8,7 +8,6 @@ import {
   missingPlayerArr,
 } from "./player-dictionary.mjs";
 import { transferFiles } from "./file-system-v2.mjs";
-// import { convertAwesemoProjectionNames } from "./convertProjections.js";
 import { convertAwesemoProjectionNamesV2 } from "./convertProjections-v2.js";
 
 const PORT = 3025;
@@ -25,7 +24,6 @@ let main = async () => {
   const $ = cheerio.load(html);
 
   $(".lineup.is-nba").each((index, element) => {
-    // result: {athlete, team, oppTeam, pctPlay}
     let homeTeam = null;
     let awayTeam = null;
     let gameTime = null;
@@ -72,6 +70,7 @@ let main = async () => {
 
   // Get player data from projections
 
+  // removes duplicates from mainArr
   const uniqueIds = mainArr.reduce((a, entry) => {
     // if athlete in a, skip
     if (!a.find((obj) => obj.athleteName === entry.athleteName)) {

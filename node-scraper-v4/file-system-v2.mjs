@@ -30,9 +30,9 @@ const moveFiles = (k, v) => {
   // k = oldPath
   // v = newPath
   !fs.existsSync(k)
-    ? console.log(`File ${k} does not exist`)
+    ? console.log(`File Transfer: File ${k} does not exist`)
     : fs.rename(k, v, function () {
-        console.log(`Transferred ${k} to ${v}`);
+        console.log(`File Transfer: Transferred ${k} to ${v}`);
       });
 };
 
@@ -42,4 +42,5 @@ export const transferFiles = async () => {
     let val = path[key];
     moveFiles(key[0], val);
   });
+  return;
 };

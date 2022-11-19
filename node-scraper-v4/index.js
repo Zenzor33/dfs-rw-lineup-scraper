@@ -15,11 +15,11 @@ const url = "https://www.rotowire.com/basketball/nba-lineups.php";
 
 const arrTags = [".is-pct-play-75", ".is-pct-play-50", ".is-pct-play-25"];
 let mainArr = [];
+let main = async () => {
+  await transferFiles();
+  await convertAwesemoProjectionNames();
+  let response = await axios(url);
 
-// transferFiles();
-// convertAwesemoProjectionNames();
-
-axios(url).then((response) => {
   const html = response.data;
   const $ = cheerio.load(html);
 
@@ -81,13 +81,12 @@ axios(url).then((response) => {
   }, []);
 
   // If you use "await", code must be inside an asynchronous function:
-  (async () => {
-    const csv = new ObjectsToCsv(uniqueIds);
+  const csv = new ObjectsToCsv(uniqueIds);
 
-    // Save to file:
-    await csv.toDisk("qPlayers.csv");
+  // Save to file:
+  await csv.toDisk("qPlayers.csv");
 
-    // Return the CSV file as string:
-    await csv.toString();
-  })();
-});
+  // Return the CSV file as string:
+  await csv.toString();
+};
+main();

@@ -2,6 +2,11 @@ import fs from "fs";
 
 // sorted by oldPath:newPath
 const paths = [
+  // {
+  //   fileName: "NBA DK Projections",
+  //   oldPath: "...",
+  //   newPath: "...",
+  // },
   {
     "/Users/harrogath/Downloads/NBA DK Projections.csv":
       "/Users/harrogath/dfs-rw-lineup-scraper/node-scraper-v4/NBA DK Projections.csv",
@@ -31,13 +36,10 @@ const moveFiles = (k, v) => {
       });
 };
 
-export const transferFiles = () => {
+export const transferFiles = async () => {
   paths.map((path) => {
     let key = Object.keys(path);
     let val = path[key];
     moveFiles(key[0], val);
-    return;
   });
 };
-
-transferFiles();

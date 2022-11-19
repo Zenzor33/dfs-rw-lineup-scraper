@@ -25,7 +25,7 @@ const expectedFileNames = [
   { projectionsDK: "NBA DK Projections.csv" },
   { projectionsDKFO: "NBA DK Ownership.csv" },
   { projectionsFD: "NBA FD Projections.csv" },
-  { projectionsFDFO: "NBA FD Projections.csv" },
+  { projectionsFDFO: "NBA FD Ownership.csv" },
 ];
 
 function doesFileExist() {
@@ -46,17 +46,24 @@ function doesFileExist() {
 }
 
 async function convertAwesemoProjectionNamesV2() {
-  let currentFiles = await doesFileExist();
+  let currentFiles = await doesFileExist(); // returns array of currentFiles
   if (currentFiles.length > 0) {
+    // switch to if currentFiles === 0 return
     for (let i = 0; i < currentFiles.length; i++) {
       const currentFile = currentFiles[i];
-      const currentFileCSV = await csv().fromFile(currentFile);
-      const translatedProjections = currentFileCSV.map((obj) => {
-        obj.Name = translateAthleteName(obj.Name);
-        return obj;
-      });
+      executeFile(currentFile);
     }
   }
+}
+
+async function executeFile(currentFile) {
+  console.log(`about to read filename: ${currentFile}`);
+  const currentFileCSV = await csv().fromFile(currentFile);
+  console.log(`read file ${currentFile}`);
+  const translatedProjections = currentFileCSV.map((obj) => {
+    obj.Name = translateAthleteName(obj.Name);
+    return obj;
+  });
 }
 
 convertAwesemoProjectionNamesV2();

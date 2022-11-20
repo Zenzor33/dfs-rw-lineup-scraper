@@ -745,6 +745,10 @@ export const translateAthleteName = (athleteName) => {
   if (translatedAthleteName) return translatedAthleteName;
   if (!translatedAthleteName) {
     missingPlayerArr.push(athleteName);
+    console.log(`missingPlayerPushed ${athleteName}`);
+    return athleteName;
   }
   // throw `Athlete name of: ${athleteName} does not have a translation`;
 };
+
+export { missingPlayerArr };

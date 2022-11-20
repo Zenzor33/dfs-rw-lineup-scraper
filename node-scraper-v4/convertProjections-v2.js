@@ -3,7 +3,6 @@ import csv from "csvtojson";
 import { Parser } from "json2csv";
 import {
   translateAthleteName,
-  awesemoAthleteName,
   missingPlayerArr,
 } from "./player-dictionary.mjs";
 import e from "express";
@@ -49,6 +48,7 @@ function getFiles() {
 
 export async function convertAwesemoProjectionNamesV2() {
   let currentFiles = await getFiles(); // returns array of currentFiles
+  console.log(`currentFiles: ${currentFiles}`);
   if (currentFiles.length === 0)
     return console.log(
       "Convert Projections: Cannot sanitize player names: no files exist"
@@ -80,19 +80,43 @@ async function modifyFile(file, filePath) {
 
 async function saveChanges(file, filePath) {
   // save the changes
-  const modifiedCSV = new Parser({
-    fields: [
-      "Name",
-      "Fpts",
-      "Position",
-      "Team",
-      "Opponent",
-      "Minutes",
-      "Salary",
-      "Pts/$",
-      "Value",
-    ],
-  }).parse(file); // loaded file in memory
-  fs.writeFileSync(filePath, modifiedCSV); // filePath, data
-  console.log(`Convert Projections: sanitized names to ${filePath} success`);
+  if (
+    filePath === "NBA DK Projections.csv" ||
+    filePath === "NBA FD Projections.csv"
+  ) {
+    const modifiedCSV = new Parser({
+      fields: [
+        "Name",
+        "Fpts",
+        "Position",
+        "Team",
+        "Opponent",
+        "Minutes",
+        "Salary",
+        "Pts/$",
+        "Value",
+      ],
+    }).parse(file); // loaded file in memory
+    fs.writeFileSync(filePath, modifiedCSV); // filePath, data
+    console.log(`Convert Projections: sanitized names to ${filePath} success`);
+  } else if (
+    filePath === "NBA DK Ownership.csv" ||
+    filePath === "NBA FD Ownership.csv"
+  ) {
+    const modifiedCSV = new Parser({
+      fields: [
+        "Name",
+        "Salary",
+        "Position",
+        "Matchup",
+        "Team",
+        "Opponent",
+        "Ownership %",
+      ],
+    }).parse(file); // loaded file in memory
+    fs.writeFileSync(filePath, modifiedCSV); // filePath, data
+    console.log(`Convert Projections: sanitized names to ${filePath} success`);
+  } else {
+    console.log(`ERROR: Can't save to file. ${filePath} not a valid file name`);
+  }
 }

@@ -24,14 +24,18 @@ let main = async () => {
   const $ = cheerio.load(html);
 
   $(".lineup.is-nba").each((index, element) => {
-    let homeTeam = null;
-    let awayTeam = null;
-    let gameTime = null;
+    // let homeTeam = null;
+    // let awayTeam = null;
+    // let gameTime = null;
     let awayTeamInjuryPlayer = null;
     let homeTeamInjuryPlayer = null;
-    awayTeam = $(element).find(".lineup__team.is-visit > .lineup__abbr").text();
-    homeTeam = $(element).find(".lineup__team.is-home > .lineup__abbr").text();
-    gameTime = $(element).find(".lineup__time").text();
+    let awayTeam = $(element)
+      .find(".lineup__team.is-visit > .lineup__abbr")
+      .text();
+    let homeTeam = $(element)
+      .find(".lineup__team.is-home > .lineup__abbr")
+      .text();
+    let gameTime = $(element).find(".lineup__time").text();
     for (let i = 0; i < arrTags.length; i++) {
       let pctPlay = null;
       if (i === 0) pctPlay = 75;

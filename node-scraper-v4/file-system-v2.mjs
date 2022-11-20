@@ -42,5 +42,6 @@ export const transferFiles = async () => {
     let val = path[key];
     moveFiles(key[0], val);
   });
+  console.log("File transfer complete");
   return;
 };

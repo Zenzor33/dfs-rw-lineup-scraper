@@ -40,9 +40,11 @@ const moveFiles = async (k, v) => {
   }
 };
 
-const confirmFileMove = async (file) => {
+const confirmFileMove = (file, id = 0) => {
+  if (file == undefined) return false;
+  if (id === 1) return true;
   if (fs.existsSync(file)) {
-    return true;
+    setTimeout(confirmFileMove(file, 1), 1000);
   } else {
     console.log(`${file} not found. Retrying`);
     setTimeout(confirmFileMove, 1000);
@@ -72,7 +74,7 @@ let x = async () => {
     }
   }
   console.log("File transfer complete");
-  return x;
+  return;
 };
 
 x();

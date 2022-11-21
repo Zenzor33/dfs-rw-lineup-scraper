@@ -7,9 +7,8 @@ import {
   translateAthleteName,
   missingPlayerArr,
 } from "./player-dictionary.mjs";
-import { transferFiles } from "./file-system-v2.mjs";
-// import { convertAwesemoProjectionNames } from "./convertProjections.js";
 import { convertAwesemoProjectionNamesV2 } from "./convertProjections-v2.js";
+import { transferFilesV3 } from "./file-system-v3.mjs";
 
 const PORT = 3025;
 const url = "https://www.rotowire.com/basketball/nba-lineups.php";
@@ -17,7 +16,7 @@ const url = "https://www.rotowire.com/basketball/nba-lineups.php";
 const arrTags = [".is-pct-play-75", ".is-pct-play-50", ".is-pct-play-25"];
 let mainArr = [];
 let main = async () => {
-  await transferFiles();
+  await transferFilesV3();
   await convertAwesemoProjectionNamesV2();
   let response = await axios(url);
 
@@ -25,15 +24,18 @@ let main = async () => {
   const $ = cheerio.load(html);
 
   $(".lineup.is-nba").each((index, element) => {
-    // result: {athlete, team, oppTeam, pctPlay}
-    let homeTeam = null;
-    let awayTeam = null;
-    let gameTime = null;
+    // let homeTeam = null;
+    // let awayTeam = null;
+    // let gameTime = null;
     let awayTeamInjuryPlayer = null;
     let homeTeamInjuryPlayer = null;
-    awayTeam = $(element).find(".lineup__team.is-visit > .lineup__abbr").text();
-    homeTeam = $(element).find(".lineup__team.is-home > .lineup__abbr").text();
-    gameTime = $(element).find(".lineup__time").text();
+    let awayTeam = $(element)
+      .find(".lineup__team.is-visit > .lineup__abbr")
+      .text();
+    let homeTeam = $(element)
+      .find(".lineup__team.is-home > .lineup__abbr")
+      .text();
+    let gameTime = $(element).find(".lineup__time").text();
     for (let i = 0; i < arrTags.length; i++) {
       let pctPlay = null;
       if (i === 0) pctPlay = 75;
@@ -72,6 +74,7 @@ let main = async () => {
 
   // Get player data from projections
 
+  // removes duplicates from mainArr
   const uniqueIds = mainArr.reduce((a, entry) => {
     // if athlete in a, skip
     if (!a.find((obj) => obj.athleteName === entry.athleteName)) {

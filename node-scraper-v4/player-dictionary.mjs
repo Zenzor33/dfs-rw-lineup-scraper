@@ -739,20 +739,16 @@ const athleteTranslation = {
 // return an array of player athlete names before throwing error
 let missingPlayerArr = [];
 
+// Duplicates are caused by this function being used to sanitize Rotowire and convertProjections
 export const translateAthleteName = (athleteName) => {
   const translatedAthleteName = athleteTranslation[athleteName];
   if (translatedAthleteName) return translatedAthleteName;
   if (!translatedAthleteName) {
     missingPlayerArr.push(athleteName);
+    console.log(`missingPlayerPushed ${athleteName}`);
+    return athleteName;
   }
   // throw `Athlete name of: ${athleteName} does not have a translation`;
-};
-
-export const awesemoAthleteName = (athleteName) => {
-  for (let property in athleteTranslation) {
-    if (property === athleteTranslation[athleteName]) return property;
-  }
-  return "error, check player-dictionary";
 };
 
 export { missingPlayerArr };

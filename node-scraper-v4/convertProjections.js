@@ -3,7 +3,7 @@ import csv from "csvtojson";
 import { Parser } from "json2csv";
 import {
   translateAthleteName,
-  awesemoAthleteName,
+  // awesemoAthleteName,
   missingPlayerArr,
 } from "./player-dictionary.mjs";
 
@@ -101,3 +101,5 @@ export const convertAwesemoProjectionNames = async () => {
   }).parse(projectionsFDFO);
   fs.writeFileSync("NBA FD Ownership.csv", athletesToCsvFDFO);
 };
+
+convertAwesemoProjectionNames();

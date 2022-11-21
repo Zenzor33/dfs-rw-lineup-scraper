@@ -7,8 +7,8 @@ import {
   translateAthleteName,
   missingPlayerArr,
 } from "./player-dictionary.mjs";
-import { transferFiles } from "./file-system-v2.mjs";
 import { convertAwesemoProjectionNamesV2 } from "./convertProjections-v2.js";
+import { transferFilesV3 } from "./file-system-v3.mjs";
 
 const PORT = 3025;
 const url = "https://www.rotowire.com/basketball/nba-lineups.php";
@@ -16,7 +16,7 @@ const url = "https://www.rotowire.com/basketball/nba-lineups.php";
 const arrTags = [".is-pct-play-75", ".is-pct-play-50", ".is-pct-play-25"];
 let mainArr = [];
 let main = async () => {
-  await transferFiles();
+  await transferFilesV3();
   await convertAwesemoProjectionNamesV2();
   let response = await axios(url);
 

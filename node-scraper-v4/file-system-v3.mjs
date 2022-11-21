@@ -30,30 +30,26 @@ const fileInfo = [
 
 const moveFile = async (oldPath, newPath, fileName) => {
   if (!fs.existsSync(oldPath)) {
-    // console.log(`File Transfer: File ${oldPath} does not exist`);
+    console.log(`File Transfer: File ${fileName} does not exist`);
     return false;
   } else {
     await fsPromises.rename(oldPath, newPath);
-    console.log(`File Transfer: Transferred ${fileName}`);
+    console.log(`File Transfer: Transferring ${fileName}`);
   }
   return true;
 };
 
 const isFileMoved = (path, fileName) => {
   if (fs.existsSync(path)) {
-    console.log(`Verification System: File ${fileName} confirmed moved`);
-    return true;
-  } else {
     console.log(
-      `Verification System: File ${fileName} was not moved. Retrying in 3 seconds`
+      `File Transfer Verification System: File ${fileName} confirmed moved`
     );
-    // setTimeout(function () {
-    //   isFileMoved(path, fileName);
-    // }, 3000);
+    return true;
   }
+  return false;
 };
 
-const transferFiles = async () => {
+export const transferFilesV3 = async () => {
   for (let i = 0; i < fileInfo.length; i++) {
     let file = fileInfo[i];
     let fileName = file.fileName;
@@ -62,11 +58,8 @@ const transferFiles = async () => {
 
     // if oldPath exists, move to newPath & console.log
     let x = await moveFile(oldPath, newPath, fileName);
-    console.log("test");
 
     // verify file is moved before continuing
     if (x) isFileMoved(newPath, fileName);
   }
 };
-
-transferFiles();

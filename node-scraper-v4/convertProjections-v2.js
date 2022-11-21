@@ -59,11 +59,29 @@ async function loadFile(filePath) {
 }
 
 async function modifyFile(file, filePath) {
-  const translatedProjections = file.map((obj) => {
-    obj.Name = translateAthleteName(obj.Name);
-    return obj;
-  });
   // console.log(`modified ${filePath} successfully `);
+  return new Promise((resolve, reject) => {
+    const translatedProjections = file.map((obj) => {
+      obj.Name = translateAthleteName(obj.Name);
+      return obj;
+    });
+    resolve();
+  });
+}
+
+function createPosts(post) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      posts.push(post);
+
+      const error = false;
+      if (!error) {
+        resolve();
+      } else {
+        reject(`Error, something went wrong`);
+      }
+    }, 2000);
+  });
 }
 
 async function saveChanges(file, filePath) {

@@ -40,7 +40,7 @@ const moveFiles = async (k, v) => {
   }
 };
 
-const confirmFileMove = (file, id = 0) => {
+const confirmFileMove = async (file, id = 0) => {
   if (file == undefined) return false;
   if (id === 1) return true;
   if (fs.existsSync(file)) {

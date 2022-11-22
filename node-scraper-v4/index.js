@@ -16,17 +16,14 @@ const url = "https://www.rotowire.com/basketball/nba-lineups.php";
 const arrTags = [".is-pct-play-75", ".is-pct-play-50", ".is-pct-play-25"];
 let mainArr = [];
 let main = async () => {
-  await transferFilesV3();
-  await convertAwesemoProjectionNamesV2();
+  await transferFilesV3(); // transfers files from downloads to local repo
+  await convertAwesemoProjectionNamesV2(); // modifies files in local repo
   let response = await axios(url);
 
   const html = response.data;
   const $ = cheerio.load(html);
 
   $(".lineup.is-nba").each((index, element) => {
-    // let homeTeam = null;
-    // let awayTeam = null;
-    // let gameTime = null;
     let awayTeamInjuryPlayer = null;
     let homeTeamInjuryPlayer = null;
     let awayTeam = $(element)

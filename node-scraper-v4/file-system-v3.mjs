@@ -57,7 +57,9 @@ export const transferFilesV3 = async () => {
     let newPath = file.newPath;
 
     // if oldPath exists, move to newPath & console.log
+    console.log(`FTS: ${fileName}`);
     let x = await moveFile(oldPath, newPath, fileName);
+    console.log(`FTS: done with ${fileName}`);
 
     // verify file is moved before continuing
     if (x) isFileMoved(newPath, fileName);

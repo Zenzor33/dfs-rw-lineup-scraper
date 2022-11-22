@@ -46,8 +46,8 @@ export async function convertAwesemoProjectionNamesV2() {
       const currentFile = currentFiles[i];
       console.log(`Convert Projections: Sanitizing ${currentFile}`);
       let csvFile = await loadFile(currentFile);
-      await modifyFile(csvFile, currentFile);
-      await saveChanges(csvFile, currentFile);
+      modifyFile(csvFile, currentFile);
+      saveChanges(csvFile, currentFile);
     }
   }
 }
@@ -58,15 +58,31 @@ async function loadFile(filePath) {
   return csvFromFile;
 }
 
-async function modifyFile(file, filePath) {
+// WRONG
+function modifyFile(file, filePath) {
+  // console.log(`modified ${filePath} successfully `);
   const translatedProjections = file.map((obj) => {
     obj.Name = translateAthleteName(obj.Name);
     return obj;
   });
-  // console.log(`modified ${filePath} successfully `);
 }
 
-async function saveChanges(file, filePath) {
+// function createPosts(post) {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       posts.push(post);
+
+//       const error = false;
+//       if (!error) {
+//         resolve();
+//       } else {
+//         reject(`Error, something went wrong`);
+//       }
+//     }, 2000);
+//   });
+// }
+
+function saveChanges(file, filePath) {
   // save the changes
   if (
     filePath === "NBA DK Projections.csv" ||

@@ -22,10 +22,8 @@ function getFiles() {
     let key = Object.keys(file);
     let fileName = file[key];
     if (!fs.existsSync(fileName)) {
-      //   console.log(`${key} not found`);
       return false;
     } else {
-      // console.log(`found ${fileName}`);
       arr.push(fileName);
       return true;
     }
@@ -36,12 +34,12 @@ function getFiles() {
 export async function convertAwesemoProjectionNamesV2() {
   let currentFiles = await getFiles(); // returns array of currentFiles
   console.log(`Convert Projections: Files to sanitize: ${currentFiles}`);
+  // switch to if currentFiles === 0 return
   if (currentFiles.length === 0)
     return console.log(
       "Convert Projections: Cannot sanitize player names: no files exist"
     );
   else {
-    // switch to if currentFiles === 0 return
     for (let i = 0; i < currentFiles.length; i++) {
       const currentFile = currentFiles[i];
       console.log(`Convert Projections: Sanitizing ${currentFile}`);
@@ -58,7 +56,6 @@ async function loadFile(filePath) {
   return csvFromFile;
 }
 
-// WRONG
 function modifyFile(file, filePath) {
   // console.log(`modified ${filePath} successfully `);
   const translatedProjections = file.map((obj) => {
@@ -66,21 +63,6 @@ function modifyFile(file, filePath) {
     return obj;
   });
 }
-
-// function createPosts(post) {
-//   return new Promise((resolve, reject) => {
-//     setTimeout(() => {
-//       posts.push(post);
-
-//       const error = false;
-//       if (!error) {
-//         resolve();
-//       } else {
-//         reject(`Error, something went wrong`);
-//       }
-//     }, 2000);
-//   });
-// }
 
 function saveChanges(file, filePath) {
   // save the changes

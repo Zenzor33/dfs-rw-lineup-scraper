@@ -57,7 +57,7 @@ async function loadFile(filePath) {
 }
 
 function modifyFile(file, filePath) {
-  // console.log(`modified ${filePath} successfully `);
+  console.log(`Convert Projections: Modified player names in ${filePath}:`); // This should precede missingPlayerPushed
   const translatedProjections = file.map((obj) => {
     obj.Name = translateAthleteName(obj.Name);
     return obj;

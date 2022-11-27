@@ -42,7 +42,10 @@ let main = async () => {
         .find(`.lineup__list.is-visit > ${arrTags[i]} > a`)
         .each(function (el) {
           let athleteName = $(this).attr("title");
-          let translatedAthleteName = translateAthleteName(athleteName);
+          let translatedAthleteName = translateAthleteName(
+            athleteName,
+            "Rotowire"
+          );
           mainArr.push({
             gameTime,
             athleteName: translatedAthleteName,
@@ -55,7 +58,10 @@ let main = async () => {
         .find(`.lineup__list.is-home > ${arrTags[i]} > a`)
         .each(function (el) {
           let athleteName = $(this).attr("title");
-          let translatedAthleteName = translateAthleteName(athleteName);
+          let translatedAthleteName = translateAthleteName(
+            athleteName,
+            "Rotowire"
+          );
           mainArr.push({
             gameTime,
             athleteName: translatedAthleteName,

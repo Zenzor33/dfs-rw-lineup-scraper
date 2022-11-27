@@ -21,8 +21,6 @@ let main = async () => {
 
   // change all .each to .map?
   $(".lineup.is-nba").each((index, element) => {
-    let awayTeamInjuryPlayer = null; // define at location of assignment
-    let homeTeamInjuryPlayer = null; // define at location of assignment
     // change awayTeam, homeTeam, gameTime to const?
     let awayTeam = $(element)
       .find(".lineup__team.is-visit > .lineup__abbr")
@@ -38,7 +36,7 @@ let main = async () => {
       if (i === 1) pctPlay = 50;
       if (i === 2) pctPlay = 25;
       // // //
-      awayTeamInjuryPlayer = $(element)
+      let awayTeamInjuryPlayer = $(element)
         .find(`.lineup__list.is-visit > ${arrTags[i]} > a`)
         .each(function (el) {
           let athleteName = $(this).attr("title");
@@ -54,7 +52,7 @@ let main = async () => {
             pctPlay,
           });
         });
-      homeTeamInjuryPlayer = $(element)
+      let homeTeamInjuryPlayer = $(element)
         .find(`.lineup__list.is-home > ${arrTags[i]} > a`)
         .each(function (el) {
           let athleteName = $(this).attr("title");

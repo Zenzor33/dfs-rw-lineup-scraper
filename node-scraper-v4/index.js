@@ -1,8 +1,6 @@
 import axios from "axios";
 import cheerio from "cheerio";
-// import express from "express";
 import ObjectsToCsv from "objects-to-csv";
-// import path from "path";
 import {
   translateAthleteName,
   missingPlayerArr,
@@ -10,9 +8,7 @@ import {
 import { convertAwesemoProjectionNamesV2 } from "./convertProjections-v2.js";
 import { transferFilesV3 } from "./file-system-v3.mjs";
 
-const PORT = 3025;
 const url = "https://www.rotowire.com/basketball/nba-lineups.php";
-
 const arrTags = [".is-pct-play-75", ".is-pct-play-50", ".is-pct-play-25"];
 let mainArr = [];
 let main = async () => {
@@ -23,9 +19,11 @@ let main = async () => {
   const html = response.data;
   const $ = cheerio.load(html);
 
+  // change all .each to .map?
   $(".lineup.is-nba").each((index, element) => {
-    let awayTeamInjuryPlayer = null;
-    let homeTeamInjuryPlayer = null;
+    let awayTeamInjuryPlayer = null; // define at location of assignment
+    let homeTeamInjuryPlayer = null; // define at location of assignment
+    // change awayTeam, homeTeam, gameTime to const?
     let awayTeam = $(element)
       .find(".lineup__team.is-visit > .lineup__abbr")
       .text();
@@ -35,9 +33,11 @@ let main = async () => {
     let gameTime = $(element).find(".lineup__time").text();
     for (let i = 0; i < arrTags.length; i++) {
       let pctPlay = null;
+      // use separate function with switch statement-- getPctPlay(i) //
       if (i === 0) pctPlay = 75;
       if (i === 1) pctPlay = 50;
       if (i === 2) pctPlay = 25;
+      // // //
       awayTeamInjuryPlayer = $(element)
         .find(`.lineup__list.is-visit > ${arrTags[i]} > a`)
         .each(function (el) {

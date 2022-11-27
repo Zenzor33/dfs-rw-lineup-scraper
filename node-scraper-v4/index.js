@@ -38,7 +38,6 @@ let main = async () => {
 
   // change all .each to .map?
   $(".lineup.is-nba").each((index, element) => {
-    // change awayTeam, homeTeam, gameTime to const?
     const awayTeam = $(element)
       .find(".lineup__team.is-visit > .lineup__abbr")
       .text();

@@ -11,6 +11,23 @@ import { transferFilesV3 } from "./file-system-v3.mjs";
 const url = "https://www.rotowire.com/basketball/nba-lineups.php";
 const arrTags = [".is-pct-play-75", ".is-pct-play-50", ".is-pct-play-25"];
 let mainArr = [];
+
+function getPctPlay(num) {
+  switch (num) {
+    case 0:
+      return 75;
+      break;
+    case 1:
+      return 50;
+      break;
+    case 2:
+      return 25;
+      break;
+    default:
+      throw "Invalid input at getPctPlay in Index.js";
+  }
+}
+
 let main = async () => {
   await transferFilesV3(); // transfers files from downloads to local repo
   await convertAwesemoProjectionNamesV2(); // modifies files in local repo
@@ -22,21 +39,16 @@ let main = async () => {
   // change all .each to .map?
   $(".lineup.is-nba").each((index, element) => {
     // change awayTeam, homeTeam, gameTime to const?
-    let awayTeam = $(element)
+    const awayTeam = $(element)
       .find(".lineup__team.is-visit > .lineup__abbr")
       .text();
-    let homeTeam = $(element)
+    const homeTeam = $(element)
       .find(".lineup__team.is-home > .lineup__abbr")
       .text();
-    let gameTime = $(element).find(".lineup__time").text();
+    const gameTime = $(element).find(".lineup__time").text();
     for (let i = 0; i < arrTags.length; i++) {
-      let pctPlay = null;
-      // use separate function with switch statement-- getPctPlay(i) //
-      if (i === 0) pctPlay = 75;
-      if (i === 1) pctPlay = 50;
-      if (i === 2) pctPlay = 25;
-      // // //
-      let awayTeamInjuryPlayer = $(element)
+      const pctPlay = getPctPlay(i);
+      const awayTeamInjuryPlayer = $(element)
         .find(`.lineup__list.is-visit > ${arrTags[i]} > a`)
         .each(function (el) {
           let athleteName = $(this).attr("title");
@@ -52,7 +64,7 @@ let main = async () => {
             pctPlay,
           });
         });
-      let homeTeamInjuryPlayer = $(element)
+      const homeTeamInjuryPlayer = $(element)
         .find(`.lineup__list.is-home > ${arrTags[i]} > a`)
         .each(function (el) {
           let athleteName = $(this).attr("title");

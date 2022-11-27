@@ -9,6 +9,7 @@ import { convertAwesemoProjectionNamesV2 } from "./convertProjections-v2.js";
 import { transferFilesV3 } from "./file-system-v3.mjs";
 
 const url = "https://www.rotowire.com/basketball/nba-lineups.php";
+// rename arrTags to something more descriptive
 const arrTags = [".is-pct-play-75", ".is-pct-play-50", ".is-pct-play-25"];
 let mainArr = [];
 
@@ -46,9 +47,10 @@ let main = async () => {
       .text();
     const gameTime = $(element).find(".lineup__time").text();
     for (let i = 0; i < arrTags.length; i++) {
+      // findAwayTeamInjuredPlayers()
       const pctPlay = getPctPlay(i);
       const awayTeamInjuryPlayer = $(element)
-        .find(`.lineup__list.is-visit > ${arrTags[i]} > a`)
+        .find(`.lineup__list.is-visit > ${arrTags[i]} > a`) // Away team Injured athlete divs?
         .each(function (el) {
           let athleteName = $(this).attr("title");
           let translatedAthleteName = translateAthleteName(
@@ -64,7 +66,7 @@ let main = async () => {
           });
         });
       const homeTeamInjuryPlayer = $(element)
-        .find(`.lineup__list.is-home > ${arrTags[i]} > a`)
+        .find(`.lineup__list.is-home > ${arrTags[i]} > a`) // Home team injured athlete divs?
         .each(function (el) {
           let athleteName = $(this).attr("title");
           let translatedAthleteName = translateAthleteName(

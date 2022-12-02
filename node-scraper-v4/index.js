@@ -13,53 +13,6 @@ const url = "https://www.rotowire.com/basketball/nba-lineups.php";
 const arrTags = [".is-pct-play-75", ".is-pct-play-50", ".is-pct-play-25"];
 let mainArr = [];
 
-function getPctPlay(num) {
-  switch (num) {
-    case 0:
-      return 75;
-      break;
-    case 1:
-      return 50;
-      break;
-    case 2:
-      return 25;
-      break;
-    default:
-      throw "Invalid input at getPctPlay in Index.js";
-  }
-}
-
-function createPlayerObj(
-  status,
-  gameTime,
-  translatedAthleteName,
-  pctPlay,
-  homeTeam,
-  awayTeam
-) {
-  let athletesTeam = null;
-  let athletesOppTeam = null;
-  switch (status) {
-    case "home":
-      athletesTeam = homeTeam;
-      athletesOppTeam = awayTeam;
-      break;
-    case "away":
-      athletesTeam = awayTeam;
-      athletesOppTeam = homeTeam;
-      break;
-    default:
-      throw console.log("no status for player in createPlayerObj");
-  }
-  mainArr.push({
-    gameTime,
-    athleteName: translatedAthleteName,
-    team: athletesTeam,
-    oppTeam: athletesOppTeam,
-    pctPlay,
-  });
-}
-
 let main = async () => {
   await transferFilesV3(); // transfers files from downloads to local repo
   await convertAwesemoProjectionNamesV2(); // modifies files in local repo
@@ -141,3 +94,50 @@ let main = async () => {
   await csv.toString();
 };
 main();
+
+function getPctPlay(num) {
+  switch (num) {
+    case 0:
+      return 75;
+      break;
+    case 1:
+      return 50;
+      break;
+    case 2:
+      return 25;
+      break;
+    default:
+      throw "Invalid input at getPctPlay in Index.js";
+  }
+}
+
+function createPlayerObj(
+  status,
+  gameTime,
+  translatedAthleteName,
+  pctPlay,
+  homeTeam,
+  awayTeam
+) {
+  let athletesTeam = null;
+  let athletesOppTeam = null;
+  switch (status) {
+    case "home":
+      athletesTeam = homeTeam;
+      athletesOppTeam = awayTeam;
+      break;
+    case "away":
+      athletesTeam = awayTeam;
+      athletesOppTeam = homeTeam;
+      break;
+    default:
+      throw console.log("no status for player in createPlayerObj");
+  }
+  mainArr.push({
+    gameTime,
+    athleteName: translatedAthleteName,
+    team: athletesTeam,
+    oppTeam: athletesOppTeam,
+    pctPlay,
+  });
+}

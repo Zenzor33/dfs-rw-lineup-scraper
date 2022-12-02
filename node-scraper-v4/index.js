@@ -96,13 +96,6 @@ let main = async () => {
             homeTeam,
             pctPlay
           );
-          // mainArr.push({
-          //   gameTime,
-          //   athleteName: translatedAthleteName,
-          //   team: awayTeam,
-          //   oppTeam: homeTeam,
-          //   pctPlay,
-          // });
         });
       const homeTeamInjuryPlayer = $(element)
         .find(`.lineup__list.is-home > ${arrTags[i]} > a`) // Home team injured athlete divs?
@@ -119,13 +112,6 @@ let main = async () => {
             homeTeam,
             pctPlay
           );
-          // mainArr.push({
-          //   gameTime,
-          //   athleteName: translatedAthleteName,
-          //   team: homeTeam,
-          //   oppTeam: awayTeam,
-          //   pctPlay,
-          // });
         });
     }
   });

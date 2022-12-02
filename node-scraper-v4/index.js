@@ -29,6 +29,38 @@ function getPctPlay(num) {
   }
 }
 
+function createHomePlayerObj(
+  gameTime,
+  translatedAthleteName,
+  pctPlay,
+  homeTeam,
+  awayTeam
+) {
+  mainArr.push({
+    gameTime,
+    athleteName: translatedAthleteName,
+    team: awayTeam,
+    oppTeam: homeTeam,
+    pctPlay,
+  });
+}
+
+function createAwayPlayerObj(
+  gameTime,
+  translatedAthleteName,
+  pctPlay,
+  homeTeam,
+  awayTeam
+) {
+  mainArr.push({
+    gameTime,
+    athleteName: translatedAthleteName,
+    team: homeTeam,
+    oppTeam: awayTeam,
+    pctPlay,
+  });
+}
+
 let main = async () => {
   await transferFilesV3(); // transfers files from downloads to local repo
   await convertAwesemoProjectionNamesV2(); // modifies files in local repo
@@ -47,23 +79,30 @@ let main = async () => {
       .text();
     const gameTime = $(element).find(".lineup__time").text();
     for (let i = 0; i < arrTags.length; i++) {
-      // findAwayTeamInjuredPlayers()
       const pctPlay = getPctPlay(i);
       const awayTeamInjuryPlayer = $(element)
-        .find(`.lineup__list.is-visit > ${arrTags[i]} > a`) // Away team Injured athlete divs?
+        .find(`.lineup__list.is-visit > ${arrTags[i]} > a`) // Away team Injured athlete
         .each(function (el) {
           let athleteName = $(this).attr("title");
           let translatedAthleteName = translateAthleteName(
             athleteName,
             "Rotowire"
           );
-          mainArr.push({
+          // function createHomePlayerObj()
+          createHomePlayerObj(
             gameTime,
-            athleteName: translatedAthleteName,
-            team: awayTeam,
-            oppTeam: homeTeam,
-            pctPlay,
-          });
+            translatedAthleteName,
+            awayTeam,
+            homeTeam,
+            pctPlay
+          );
+          // mainArr.push({
+          //   gameTime,
+          //   athleteName: translatedAthleteName,
+          //   team: awayTeam,
+          //   oppTeam: homeTeam,
+          //   pctPlay,
+          // });
         });
       const homeTeamInjuryPlayer = $(element)
         .find(`.lineup__list.is-home > ${arrTags[i]} > a`) // Home team injured athlete divs?
@@ -73,13 +112,20 @@ let main = async () => {
             athleteName,
             "Rotowire"
           );
-          mainArr.push({
+          createAwayPlayerObj(
             gameTime,
-            athleteName: translatedAthleteName,
-            team: homeTeam,
-            oppTeam: awayTeam,
-            pctPlay,
-          });
+            translatedAthleteName,
+            awayTeam,
+            homeTeam,
+            pctPlay
+          );
+          // mainArr.push({
+          //   gameTime,
+          //   athleteName: translatedAthleteName,
+          //   team: homeTeam,
+          //   oppTeam: awayTeam,
+          //   pctPlay,
+          // });
         });
     }
   });

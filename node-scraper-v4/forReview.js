@@ -29,6 +29,38 @@ function getPctPlay(num) {
   }
 }
 
+function createHomePlayerObj(
+  gameTime,
+  translatedAthleteName,
+  pctPlay,
+  homeTeam,
+  awayTeam
+) {
+  mainArr.push({
+    gameTime,
+    athleteName: translatedAthleteName,
+    team: awayTeam,
+    oppTeam: homeTeam,
+    pctPlay,
+  });
+}
+
+function createAwayPlayerObj(
+  gameTime,
+  translatedAthleteName,
+  pctPlay,
+  homeTeam,
+  awayTeam
+) {
+  mainArr.push({
+    gameTime,
+    athleteName: translatedAthleteName,
+    team: homeTeam,
+    oppTeam: awayTeam,
+    pctPlay,
+  });
+}
+
 function createPlayerObj(
   status,
   gameTime,
